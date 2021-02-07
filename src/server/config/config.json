@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "pguser",
+    "password": "pguserpw",
+    "database": "pgdb",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "pguser",
+    "password": "pguserpw",
+    "database": "pgdb",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "pguser",
+    "password": "pguserpw",
+    "database": "pgdb",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
