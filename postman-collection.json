@@ -1,0 +1,77 @@
+{
+  "info": {
+    "_postman_id": "1e421579-56cc-456b-963c-2f53302befac",
+    "name": "ticket_api",
+    "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+  },
+  "item": [
+    {
+      "name": "get all tickets",
+      "id": "597e10e4-4b77-4919-b2bd-6c8df02c3f1b",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http:\/\/localhost:8000\/api\/v1\/tickets"
+      },
+      "response": []
+    },
+    {
+      "name": "create ticket",
+      "id": "bf4e2eb3-036b-49a3-98df-6f03b774eb44",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"user_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 1 \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http:\/\/localhost:8000\/api\/v1\/tickets"
+      },
+      "response": []
+    },
+    {
+      "name": "update ticket",
+      "id": "c04fd374-7733-4d69-b3c5-6807ceeb695b",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"user_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 2 \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http:\/\/localhost:8000\/api\/v1\/tickets\/e33e2676-528b-4ff8-9de4-cf1395e95ba5"
+      },
+      "response": []
+    },
+    {
+      "name": "get ticket by uuid",
+      "id": "6f6f15ed-c310-42da-ad1c-712aa9601735",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http:\/\/localhost:8000\/api\/v1\/tickets\/e33e2676-528b-4ff8-9de4-cf1395e95ba5"
+      },
+      "response": []
+    },
+    {
+      "name": "delete ticket",
+      "id": "9316f343-2ad8-4881-9796-c5594f0ac3d8",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "http:\/\/localhost:8000\/api\/v1\/tickets\/e33e2676-528b-4ff8-9de4-cf1395e95ba5"
+      },
+      "response": []
+    }
+  ]
+}
