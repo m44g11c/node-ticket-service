@@ -1,13 +1,11 @@
 # Ticket API With Node, Express and MySql (using Sequelize)
 
-Have fun! 😄
-
 ## Run
 
-    docker-compose up --build
+    docker-compose up 
 
 ## Test
 
-npm run test
+    npm run test
 
 

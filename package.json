@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon ./src/bin/www --watch .src/server",
+    "start:dev": "nodemon ./src/bin/www -w app.js -w server",
     "dev-test": "nodemon -x 'npm test'",
     "test": "mocha --timeout 1500"
   },
