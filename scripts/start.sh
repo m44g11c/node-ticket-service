@@ -5,6 +5,6 @@ if [ "$NODE_ENV" == "production" ] ; then
 else
   npx sequelize db:migrate
   npx sequelize db:seed:all
-  npm run test
+#  npm run test
   npm run start:dev
 fi

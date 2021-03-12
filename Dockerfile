@@ -9,9 +9,12 @@ COPY .sequelizerc /home/app/
 
 RUN npm ci
 
-RUN npm i -g nodemon
+#RUN npm i -g nodemon
 
+#RUN npm i -g sequelize
 RUN npm i -g sequelize-cli
+RUN npm i -g mysql2
+#RUN sequelize init
 
 COPY . /home/app
 

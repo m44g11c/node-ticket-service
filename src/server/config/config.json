@@ -1,11 +1,11 @@
 {
   "development": {
-    "username": "pguser",
-    "password": "pguserpw",
-    "database": "pgdb",
-    "host": "postgres",
-    "port": 5432,
-    "dialect": "postgres"
+    "username": "user",
+    "password": "password",
+    "database": "db",
+    "host": "mysql",
+    "port": 3306,
+    "dialect": "mysql"
   },
   "test": {
     "username": "pguser",

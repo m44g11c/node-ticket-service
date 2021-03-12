@@ -7,16 +7,26 @@ services:
       - ./:/home/app
       - /home/app/node_modules/
     depends_on:
-      - postgres
+      - mysql
     ports:
       - "8000:8000"
       - "9229:9229"
 
-  postgres:
-    image: postgres:12.0-alpine
-    environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: pguserpw
-      POSTGRES_DB: pgdb
+  mysql:
+    image: mysql:5.7
+    command: --sql_mode=""
+    restart: always
     ports:
-      - "5432:5432"
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    hostname: my-rabbit
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
