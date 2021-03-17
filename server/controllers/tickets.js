@@ -1,5 +1,20 @@
 var Sequelize = require('sequelize');
-const ticket = require("../models").ticket;
+const ticket = require("../db/models").ticket;
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 15;
+    const offset = page ? page * limit : 0;
+
+    return {limit, offset};
+}
+
+const getPagingData = (data, page, limit) => {
+    const {count: totalItems, rows: tickets} = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {totalItems, tickets, totalPages, currentPage};
+}
 
 module.exports = {
     create(req, res) {
@@ -31,10 +46,20 @@ module.exports = {
 
     list(req, res) {
 
+        const {page, size} = req.query;
+        const {limit, offset} = getPagination(page, size);
+
         return ticket
-            // .findAll(whereCondition)
-            .findAll()
-            .then(tickets => res.status(200).send(tickets))
+            .findAndCountAll({
+                limit,
+                offset
+            })
+            .then(
+                data => {
+                    const response = getPagingData(data, page, limit);
+                    res.send(response);
+                }
+            )
             .catch(error => res.status(400).send(error));
     },
 

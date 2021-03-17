@@ -1,22 +1,44 @@
-# docker-compose.yml
-version: "3"
+version: "3.7"
+
 services:
-  app:
-    build: .
+  mysql-db:
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbuserpwd
+      MYSQL_DATABASE: boilerplate_db
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
-      - ./:/home/app
-      - /home/app/node_modules/
+      - db_data:/var/lib/mysql
+    networks:
+      - boilerplate-network
+
+  node-app:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     depends_on:
-      - postgres
+      - mysql-db
     ports:
       - "8000:8000"
-      - "9229:9229"
+    expose:
+      - "8000"
+    volumes:
+      - ./server:/opt/app:delegated
+      - ./server/package.json:/opt/package.json
+      - ./server/package-lock.json:/opt/package-lock.json
+      - notused:/opt/app/node_modules
+    networks:
+      - boilerplate-network
 
-  postgres:
-    image: postgres:12.0-alpine
-    environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: pguserpw
-      POSTGRES_DB: pgdb
-    ports:
-      - "5432:5432"
+volumes:
+  db_data:
+  notused:
+
+networks:
+  boilerplate-network:
+    driver: bridge
