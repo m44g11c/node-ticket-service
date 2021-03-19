@@ -17,6 +17,25 @@ const getPagingData = (data, page, limit) => {
 }
 
 module.exports = {
+    param(req, res, next, uuid) {
+        ticket.findOne({where: {uuid: uuid}}).then(function (ticket) {
+            if (!ticket) { return res.sendStatus(404); }
+            req.ticket = ticket;
+
+            return next();
+        }).catch(next);
+    },
+
+    retrieve(req, res) {
+        res.send(req.ticket);
+    },
+
+    delete(req, res) {
+        req.ticket.destroy();
+
+        return res.status(204).send();
+    },
+
     create(req, res) {
         return ticket
             .create({
@@ -32,16 +51,15 @@ module.exports = {
     },
 
     update(req, res) {
-        return ticket
-            .update({
-                    name: req.body.name,
-                    size: req.body.size,
-                    price: req.body.price,
-                    status: req.body.status
-                },
-                {returning: true, where: {id: req.params.id}})
-            .then(([rowsUpdate, [updatedRow]]) => res.status(200).send(updatedRow))
-            .catch(error => res.status(400).send(error));
+        req.ticket.uuid = req.body.uuid;
+        req.ticket.user_uuid = req.body.user_uuid;
+        req.ticket.subject = req.body.subject;
+        req.ticket.body = req.body.body;
+        req.ticket.status_id = req.body.status_id;
+
+        req.ticket.save({fields: ['uuid', 'user_uuid', 'subject', 'body', 'status_id']});
+
+        return res.status(201).send(req.ticket);
     },
 
     list(req, res) {
@@ -60,52 +78,6 @@ module.exports = {
                     res.send(response);
                 }
             )
-            .catch(error => res.status(400).send(error));
-    },
-
-    retrieve(req, res) {
-        return ticket
-            .findOne({
-                where: {
-                    uuid: req.params.id
-                }
-            })
-            .then(ticket => {
-                if (!ticket) {
-                    throw({
-                        "name": "ValidationError",
-                        "errors": [
-                            {
-                                message: 'Item not found'
-                            }
-                        ]
-                    });
-                }
-                return res.status(200).send(ticket);
-            })
-            .catch(error => res.status(400).send(error));
-    },
-
-    delete(req, res) {
-        return ticket
-            .destroy({
-                where: {
-                    uuid: req.params.id
-                }
-            })
-            .then(rowDeleted => {
-                if (rowDeleted !== 1) {
-                    throw({
-                        "name": "ValidationError",
-                        "errors": [
-                            {
-                                message: 'Item not found'
-                            }
-                        ]
-                    });
-                }
-                return res.status(200).json({message: "Deleted successfully"});
-            })
             .catch(error => res.status(400).send(error));
     }
 
