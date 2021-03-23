@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       status_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +33,7 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('tickets');
   }
