@@ -36,7 +36,9 @@ module.exports = (sequelize, DataTypes) => {
              isUUID: 4
          }
      }
-  }, {});
+  }, {
+      tableName: 'ticketService_tickets'
+  });
 
   // ticket.associate = function(models) {
   //   ticket.hasMany(models.orderItem, {

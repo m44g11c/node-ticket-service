@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ticketStatuses', {
+    return queryInterface.createTable('ticketService_ticketStatuses', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -27,6 +27,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ticketStatuses');
+    return queryInterface.dropTable('ticketService_ticketStatuses');
   }
 };
