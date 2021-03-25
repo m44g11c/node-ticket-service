@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('tickets', [
         {
             uuid: uuidv4(),
-            user_uuid: uuidv4(),
+            object_uuid: uuidv4(),
             subject: 'Test ticket subject',
             body: 'Test ticket body',
             status_id: 1,

@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 const ticket = require("../db/models").ticket;
+const uuidv4 = require('uuid/v4');
 
 const getPagination = (page, size) => {
     const limit = size ? +size : 15;
@@ -39,8 +40,8 @@ module.exports = {
     create(req, res) {
         return ticket
             .create({
-                uuid: req.body.uuid,
-                user_uuid: req.body.user_uuid,
+                uuid: uuidv4(),
+                object_uuid: req.body.object_uuid,
                 price: req.body.price,
                 subject: req.body.subject,
                 body: req.body.body,
@@ -52,12 +53,12 @@ module.exports = {
 
     update(req, res) {
         req.ticket.uuid = req.body.uuid;
-        req.ticket.user_uuid = req.body.user_uuid;
+        req.ticket.object_uuid = req.body.object_uuid;
         req.ticket.subject = req.body.subject;
         req.ticket.body = req.body.body;
         req.ticket.status_id = req.body.status_id;
 
-        req.ticket.save({fields: ['uuid', 'user_uuid', 'subject', 'body', 'status_id']});
+        req.ticket.save({fields: ['uuid', 'object_uuid', 'subject', 'body', 'status_id']});
 
         return res.status(201).send(req.ticket);
     },

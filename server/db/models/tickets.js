@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
              isUUID: 4
          }
      },
-     user_uuid: {
+     object_uuid: {
          type: DataTypes.UUID,
          allowNull: false,
          validate: {

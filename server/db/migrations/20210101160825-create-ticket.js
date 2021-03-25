@@ -11,7 +11,7 @@ module.exports = {
       uuid: {
         type: Sequelize.UUID
       },
-      user_uuid: {
+      object_uuid: {
         type: Sequelize.UUID
       },
       subject: {

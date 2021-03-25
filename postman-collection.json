@@ -23,7 +23,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"user_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 1 \n}",
+          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"object_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 1 \n}",
           "options": {
             "raw": {
               "language": "json"
@@ -42,7 +42,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"user_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 2 \n}",
+          "raw": "{\n    \"uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"object_uuid\": \"e33e2676-528b-4ff8-9de4-cf1395e95ba5\",\n    \"subject\": \"ticket subject\",\n    \"body\": \"ticket body\",\n    \"status_id\": 2 \n}",
           "options": {
             "raw": {
               "language": "json"
