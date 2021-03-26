@@ -1,6 +1,8 @@
 var Sequelize = require('sequelize');
 const ticket = require("../db/models").ticket;
 const uuidv4 = require('uuid/v4');
+const {body, validationResult} = require('express-validator');
+
 
 const getPagination = (page, size) => {
     const limit = size ? +size : 15;
@@ -18,9 +20,32 @@ const getPagingData = (data, page, limit) => {
 }
 
 module.exports = {
+    validate(method) {
+        switch (method) {
+            case 'create': {
+                return [
+                    body('object_uuid').isUUID(4),
+                    body('subject').isLength({min: 1, max: undefined}),
+                    body('body').isLength({min: 1, max:undefined}),
+                    body('status_id').isUUID(4)
+                ]
+            }
+            case 'update': {
+                return [
+                    body('object_uuid').isUUID(4),
+                    body('subject').isLength({min: 1, max: undefined}),
+                    body('body').isLength({min: 1, max:undefined}),
+                    body('status_id').isUUID(4)
+                ]
+            }
+        }
+    },
+
     param(req, res, next, uuid) {
         ticket.findOne({where: {uuid: uuid}}).then(function (ticket) {
-            if (!ticket) { return res.sendStatus(404); }
+            if (!ticket) {
+                return res.sendStatus(404);
+            }
             req.ticket = ticket;
 
             return next();
@@ -38,27 +63,41 @@ module.exports = {
     },
 
     create(req, res) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()})
+            return;
+        }
+
+        const {object_uuid, subject, body, status_id} = req.body
+
         return ticket
             .create({
                 uuid: uuidv4(),
-                object_uuid: req.body.object_uuid,
-                price: req.body.price,
-                subject: req.body.subject,
-                body: req.body.body,
-                status_id: req.body.status_id,
+                object_uuid,
+                subject,
+                body,
+                status_id
             })
             .then(ticket => res.status(201).send(ticket))
             .catch(error => res.status(400).send(error));
     },
 
     update(req, res) {
-        req.ticket.uuid = req.body.uuid;
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()})
+            return;
+        }
+
         req.ticket.object_uuid = req.body.object_uuid;
         req.ticket.subject = req.body.subject;
         req.ticket.body = req.body.body;
         req.ticket.status_id = req.body.status_id;
 
-        req.ticket.save({fields: ['uuid', 'object_uuid', 'subject', 'body', 'status_id']});
+        req.ticket.save({fields: ['object_uuid', 'subject', 'body', 'status_id']});
 
         return res.status(201).send(req.ticket);
     },
